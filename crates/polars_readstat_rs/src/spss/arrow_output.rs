@@ -259,7 +259,7 @@ pub fn read_por_to_arrow_stream_ffi_from_source(
     let subset = crate::resolve_column_subset(full_schema, columns.as_deref(), row_index_name.is_some())?;
 
     if offset > 0 || n_rows.is_some() {
-        df = df.slice(offset as i64, n_rows.unwrap_or(usize::MAX));
+        df = df.slice((offset as i64, n_rows.unwrap_or(usize::MAX)));
     }
     if missing_string_as_null {
         let names: Vec<PlSmallStr> = df.get_column_names().into_iter().cloned().collect();
@@ -293,7 +293,7 @@ pub fn read_por_to_arrow_stream_ffi_from_source(
         if start >= total {
             return None;
         }
-        let batch = df.slice(start as i64, batch_rows);
+        let batch = df.slice((start as i64, batch_rows));
         start += batch_rows;
         match df_to_struct_array(&batch, &field_for_iter) {
             Ok(array) => Some(Ok(Box::new(array) as Box<dyn polars_arrow::array::Array>)),

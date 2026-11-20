@@ -245,7 +245,7 @@ pub(crate) fn spss_batch_iter_with_reader(
             let mut start = 0usize;
             while start < df.height() {
                 let take = batch_size.min(df.height() - start);
-                let mut slice = df.slice(start as i64, take);
+                let mut slice = df.slice((start as i64, take));
                 if let Some(ref name) = row_index_name {
                     let row_start = offset + start;
                     match crate::append_row_index(slice, name.as_str(), row_start) {

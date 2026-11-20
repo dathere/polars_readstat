@@ -665,7 +665,7 @@ impl AnonymousScan for PorScan {
         }
 
         if let Some(n) = opts.n_rows {
-            df = df.slice(0, n);
+            df = df.slice((0i64, n));
         }
 
         Ok(df)

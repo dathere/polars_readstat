@@ -523,7 +523,7 @@ impl Iterator for SlicedBatchIter {
                     return Some(Ok(if start == 0 && take == height {
                         df
                     } else {
-                        df.slice(start as i64, take)
+                        df.slice((start as i64, take))
                     }));
                 }
                 Err(err) => return Some(Err(err)),

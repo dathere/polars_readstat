@@ -376,7 +376,7 @@ pub fn read_data_frame_streaming(
         let mut off = 0usize;
         while off < height {
             let take = batch_size.min(height - off);
-            let batch = df.slice(off as i64, take);
+            let batch = df.slice((off as i64, take));
             if !on_batch(batch) {
                 return Ok(());
             }
